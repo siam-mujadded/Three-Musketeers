@@ -82,13 +82,17 @@ export function HomeScreen() {
               </div>
               <div className="flex gap-2">
                 <button
-                  className={`btn-ghost flex-1 ${playerCount === 4 ? 'bg-royal-700 border-gold-400' : ''}`}
+                  type="button"
+                  aria-pressed={playerCount === 4}
+                  className={`btn-ghost flex-1 ${playerCount === 4 ? 'is-selected' : ''}`}
                   onClick={() => setPlayerCount(4)}
                 >
                   4 players (2 teams)
                 </button>
                 <button
-                  className={`btn-ghost flex-1 ${playerCount === 6 ? 'bg-royal-700 border-gold-400' : ''}`}
+                  type="button"
+                  aria-pressed={playerCount === 6}
+                  className={`btn-ghost flex-1 ${playerCount === 6 ? 'is-selected' : ''}`}
                   onClick={() => setPlayerCount(6)}
                 >
                   6 players (3 teams)

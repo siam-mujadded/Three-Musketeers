@@ -82,6 +82,21 @@ body {
   opacity: 0.4;
   cursor: not-allowed;
 }
+.btn-ghost.is-selected {
+  background: linear-gradient(180deg, rgba(224, 185, 87, 0.22), rgba(168, 132, 47, 0.18));
+  border: 1px solid #e0b957;
+  color: #fff6d6;
+  box-shadow:
+    0 0 0 2px rgba(224, 185, 87, 0.35),
+    0 0 18px rgba(224, 185, 87, 0.35),
+    inset 0 0 10px rgba(224, 185, 87, 0.18);
+}
+.btn-ghost.is-selected::before {
+  content: '✦';
+  margin-right: 6px;
+  color: #e0b957;
+  text-shadow: 0 0 6px rgba(224, 185, 87, 0.8);
+}
 
 .input-field {
   @apply px-3 py-2 rounded font-serif;
