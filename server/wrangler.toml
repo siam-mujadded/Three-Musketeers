@@ -1,0 +1,20 @@
+name = "three-musketeers-server"
+main = "src/worker.ts"
+compatibility_date = "2024-10-22"
+compatibility_flags = ["nodejs_compat"]
+
+[dev]
+port = 8787
+
+[[durable_objects.bindings]]
+name = "GAME_ROOM"
+class_name = "GameRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["GameRoom"]
+
+# CORS origin for the deployed frontend. Use "*" for local dev, tighten in prod.
+# Override with: wrangler secret put ALLOWED_ORIGIN
+[vars]
+ALLOWED_ORIGIN = "*"

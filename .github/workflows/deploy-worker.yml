@@ -1,0 +1,32 @@
+name: Deploy Cloudflare Worker
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'server/**'
+      - 'src/game/**'
+      - '.github/workflows/deploy-worker.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install server deps
+        working-directory: server
+        run: npm ci
+      - name: Deploy worker
+        working-directory: server
+        env:
+          # Create a Cloudflare API token with "Edit Cloudflare Workers"
+          # permissions at https://dash.cloudflare.com/profile/api-tokens,
+          # then add it as the CLOUDFLARE_API_TOKEN repository secret.
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # Optional account ID if the token has access to multiple accounts.
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy
