@@ -56,9 +56,9 @@ export function SwapDialog({ state, title }: SwapDialogProps) {
   }
 
   return (
-    <div className="panel p-5">
-      <div className="flex items-center justify-between mb-3">
-        <div>
+    <div className="panel p-4 w-full min-w-0 overflow-hidden">
+      <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
+        <div className="min-w-0">
           <div className="font-display tracking-widest text-gold-400 text-xs">{title}</div>
           <div className="font-serif italic text-parchment-200 text-sm">
             <span style={{ color: meta.secondary }}>{meta.bannerName}</span>: choose one card to offer to{' '}
@@ -66,7 +66,7 @@ export function SwapDialog({ state, title }: SwapDialogProps) {
           </div>
         </div>
         <button
-          className="btn-ghost"
+          className="btn-ghost shrink-0"
           onClick={() => submitSwap({ skip: true })}
         >
           Skip swap
@@ -77,7 +77,7 @@ export function SwapDialog({ state, title }: SwapDialogProps) {
         selectedId={selected}
         highlightedId={state.lastSwapReceivedCardId[viewerId] ?? null}
         onSelect={(id) => setSelected(id)}
-        size="md"
+        size="sm"
       />
       <div className="flex justify-end mt-3">
         <button

@@ -91,7 +91,7 @@ export function GameScreen() {
 
           {/* Phase-specific action strip (compact) */}
           {isSwap && (
-            <div className="shrink-0 max-h-[36vh] overflow-auto">
+            <div className="shrink-0 max-h-[36vh] min-w-0 overflow-y-auto overflow-x-hidden">
               <SwapDialog
                 state={state}
                 title={
@@ -124,7 +124,7 @@ export function GameScreen() {
           )}
 
           {isGuess && (
-            <div className="shrink-0 max-h-[38vh] overflow-auto">
+            <div className="shrink-0 max-h-[38vh] min-w-0 overflow-y-auto overflow-x-hidden">
               <GuessPanel state={state} />
             </div>
           )}
