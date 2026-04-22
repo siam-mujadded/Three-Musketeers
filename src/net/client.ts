@@ -22,9 +22,28 @@ function ensureSessionId(): string {
   }
 }
 
+// Player name lives in sessionStorage (not localStorage) so that every browser
+// tab has its own identity. Otherwise, when two "players" test from two tabs
+// on the same machine, the second tab would auto-fill with the first player's
+// name, causing confusing overlap. sessionStorage still survives a tab reload,
+// so refresh-reconnect keeps the remembered name. A one-time migration moves
+// any pre-existing localStorage value into sessionStorage so returning users
+// don't lose their name on the tab they're already in.
 export function getSavedName(): string {
   try {
-    return localStorage.getItem(NAME_KEY) ?? '';
+    const fromSession = sessionStorage.getItem(NAME_KEY);
+    if (fromSession !== null) return fromSession;
+    const legacy = localStorage.getItem(NAME_KEY);
+    if (legacy) {
+      sessionStorage.setItem(NAME_KEY, legacy);
+      try {
+        localStorage.removeItem(NAME_KEY);
+      } catch {
+        // ignore
+      }
+      return legacy;
+    }
+    return '';
   } catch {
     return '';
   }
@@ -32,7 +51,7 @@ export function getSavedName(): string {
 
 export function saveName(name: string): void {
   try {
-    localStorage.setItem(NAME_KEY, name);
+    sessionStorage.setItem(NAME_KEY, name);
   } catch {
     // ignore (private mode, quota, etc.)
   }
